@@ -19,7 +19,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleSendText(intent: Intent) {
-        val sharedUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+        var sharedUrl = intent.getStringExtra(Intent.EXTRA_TEXT)
+        if (sharedUrl?.startsWith("http") != true) {
+            sharedUrl = sharedUrl?.substring(sharedUrl.indexOf("http"))
+        }
+
         var liffUrl = "https://liff.line.me/1654950578-67erzKdm"
         liffUrl += "?url=" + URLEncoder.encode(sharedUrl);
         val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(liffUrl))
