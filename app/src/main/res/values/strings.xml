@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">LiffUrlPreviewSharer</string>
+    <string name="app_name">LINE Share</string>
+    <string name="tile_name">LINE Share</string>
 </resources>

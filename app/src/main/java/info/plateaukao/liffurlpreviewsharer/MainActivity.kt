@@ -27,8 +27,6 @@ class MainActivity : AppCompatActivity() {
             var url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
             handleSendText(url) // Handle text being sent
         }
-
-
     }
 
     private fun handleSendText(url: String) {
@@ -46,14 +44,14 @@ class MainActivity : AppCompatActivity() {
         finish()
     }
 
-    override fun onResume() {
-        super.onResume()
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
 
         // what the heck!
         val clipBoardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
-        val copiedString = clipBoardManager.primaryClip?.getItemAt(0)?.toString() ?: ""
+        val copiedString = clipBoardManager.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
         if (copiedString.isNotEmpty()) {
-            inputTextField.setText(copiedString)
+            handleSendText(copiedString)
         }
     }
 }
