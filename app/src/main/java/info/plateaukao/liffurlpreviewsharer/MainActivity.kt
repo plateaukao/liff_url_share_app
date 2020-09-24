@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         var liffUrl = "https://liff.line.me/1654950578-67erzKdm"
-        liffUrl += "?url=" + URLEncoder.encode(sharedUrl);
+        liffUrl += "?url=" + URLEncoder.encode(sharedUrl)
         val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(liffUrl))
         startActivity(webIntent)
         finish()
