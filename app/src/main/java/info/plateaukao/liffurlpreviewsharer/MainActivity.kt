@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         liffUrl += "?url=" + URLEncoder.encode(sharedUrl)
         val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(liffUrl))
         startActivity(webIntent)
-        finish()
+        finishAndRemoveTask()
     }
 
     override fun onWindowFocusChanged(hasFocus: Boolean) {
