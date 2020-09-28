@@ -3,10 +3,12 @@ package info.plateaukao.liffurlpreviewsharer
 import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.webkit.URLUtil
 import android.widget.Button
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
@@ -14,6 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_main)
 
         val inputTextField = findViewById<EditText>(R.id.textInputEditText)
@@ -31,7 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleSendText(url: String) {
         var sharedUrl = url
-        if (sharedUrl.isEmpty()) return
+        if (sharedUrl.isEmpty() || !URLUtil.isValidUrl(sharedUrl)) return
 
         if (!sharedUrl.startsWith("http")) {
             sharedUrl = sharedUrl.substring(sharedUrl.indexOf("http"))
