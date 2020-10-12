@@ -4,7 +4,6 @@ import android.content.ClipboardManager
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.view.Window
 import android.webkit.URLUtil
 import android.widget.Button
 import android.widget.EditText
@@ -12,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity
 import java.net.URLEncoder
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var inputTextField: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +32,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleSendText(url: String) {
         var sharedUrl = url
-        if (sharedUrl.isEmpty() || !URLUtil.isValidUrl(sharedUrl)) return
-
         if (!sharedUrl.startsWith("http")) {
             sharedUrl = sharedUrl.substring(sharedUrl.indexOf("http"))
         }
+
+        if (sharedUrl.isEmpty() || !URLUtil.isValidUrl(sharedUrl)) return
 
         var liffUrl = "https://liff.line.me/1654950578-67erzKdm"
         liffUrl += "?url=" + URLEncoder.encode(sharedUrl)
@@ -50,11 +48,17 @@ class MainActivity : AppCompatActivity() {
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
+        if (intent?.extras?.get(AUTO_SEND) != true) return
+
         // what the heck!
         val clipBoardManager = getSystemService(CLIPBOARD_SERVICE) as ClipboardManager
         val copiedString = clipBoardManager.primaryClip?.getItemAt(0)?.text?.toString() ?: ""
         if (copiedString.isNotEmpty()) {
             handleSendText(copiedString)
         }
+    }
+
+    companion object {
+        const val AUTO_SEND = "auto_send_arg"
     }
 }
