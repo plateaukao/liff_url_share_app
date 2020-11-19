@@ -14,3 +14,13 @@ class LiffShareTileService : TileService() {
         }
     )
 }
+
+@RequiresApi(Build.VERSION_CODES.N)
+class LiffDrawingTileService : TileService() {
+    override fun onClick() = startActivityAndCollapse(
+        Intent(this, MainActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            putExtra(MainActivity.LIFF_DRAW, true)
+        }
+    )
+}

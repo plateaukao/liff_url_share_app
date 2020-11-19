@@ -28,6 +28,16 @@ class MainActivity : AppCompatActivity() {
             var url = intent.getStringExtra(Intent.EXTRA_TEXT) ?: ""
             handleSendText(url) // Handle text being sent
         }
+        if (intent?.getBooleanExtra(LIFF_DRAW, false) == true) {
+            launchDrawingLiff()
+            finishAndRemoveTask()
+        }
+    }
+
+    private fun launchDrawingLiff() {
+        var liffUrl = "https://liff.line.me/1655257200-9lV3JD8k"
+        val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(liffUrl))
+        startActivity(webIntent)
     }
 
     private fun handleSendText(url: String) {
@@ -60,5 +70,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val AUTO_SEND = "auto_send_arg"
+        const val LIFF_DRAW = "liff_draw_arg"
     }
 }
